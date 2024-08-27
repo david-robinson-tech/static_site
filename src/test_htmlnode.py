@@ -1,5 +1,5 @@
 import unittest
-from htmlnode import HTMLNode
+from htmlnode import HTMLNode, LeafNode
 
 class TestHTMLNode(unittest.TestCase):
 
@@ -21,6 +21,13 @@ class TestHTMLNode(unittest.TestCase):
         node = HTMLNode(tag="h1", value="Title")
         expected_repr = "HTMLNode(tag='h1', value='Title', children=[], props={})"
         self.assertEqual(repr(node), expected_repr, "__repr__ should handle missing props correctly")
+
+    def test_to_html_no_children(self):
+        node = LeafNode("p", "Hello, world!")
+        self.assertEqual(node.to_html(), "<p>Hello, world!</p>")
+
+    def test_to_html_no_tag(self):
+        node = LeafNode(None, "Hello, world!")
 
 if __name__ == "__main__":
     unittest.main()
